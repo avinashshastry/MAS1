@@ -1,0 +1,72 @@
+Index.html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Voter App</title>
+</head>
+<body>
+<form action="VoterCheck" method="post">
+<fieldset style="width:20%; background-color:#80ffcc">
+<table>
+<tr><td>Name</td><td><input type="text" name="name"></td></tr>
+<tr><td>Age</td><td><input type="text" name="age"></td></tr>
+<tr><td></td><td><input type="submit" value="check voting
+eligibility"></td></tr>
+</table>
+</fieldset>
+</form>
+</body>
+</html>
+
+
+VoterCheck.java
+import java.io.IOException; 
+import java.io.PrintWriter; 
+import javax.servlet.ServletException; 
+import javax.servlet.annotation.WebServlet; 
+import javax.servlet.http.HttpServlet; 
+import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletResponse; 
+@WebServlet("/VoterCheck") 
+public class VoterCheck extends HttpServlet { 
+private static final long serialVersionUID = 1L; 
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+throws ServletException, IOException { 
+response.setContentType("text/html"); 
+PrintWriter out = response.getWriter(); 
+String name = request.getParameter("name"); 
+String ageParam = request.getParameter("age"); 
+try { 
+int age = Integer.parseInt(ageParam); 
+String message = ""; 
+if (age >= 18) { 
+message = "Congratulations, " + name + "! You are eligible to vote."; 
+19
+20
+} else { 
+message = "Sorry, " + name + ". You are not eligible to vote yet."; 
+} 
+out.println("<html>"); 
+out.println("<head>"); 
+out.println("<title>Voting Eligibility Check</title>"); 
+out.println("</head>"); 
+out.println("<body>"); 
+out.println("<h2>Voting Eligibility Check</h2>"); 
+out.println("<p>" + message + "</p>"); 
+out.println("</body>"); 
+out.println("</html>"); 
+} catch (NumberFormatException e) { 
+out.println("<html>"); 
+out.println("<head>"); 
+out.println("<title>Error</title>"); 
+out.println("</head>"); 
+out.println("<body>"); 
+out.println("<h2>Error</h2>"); 
+out.println("<p>Invalid age value: " + ageParam + "</p>"); 
+out.println("</body>"); 
+out.println("</html>"); 
+} 
+} 
+}
