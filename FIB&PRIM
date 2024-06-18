@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
+pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Fibonacci and Prime Numbers</title>
+</head>
+<body>
+<h2>First 10 Fibonacci Numbers</h2>
+<%
+int n1 = 0, n2 = 1, n3, i, count = 10; out.println(n1 + " " + n2);
+for (i = 2; i < count; ++i) { n3 = n1 + n2; out.println(" " + n3);
+n1 = n2; n2 = n3;
+}
+%>
+<h2>First 10 Prime Numbers</h2>
+<%
+int num = 1;
+int countPrimes = 0;
+while (countPrimes < 10) { boolean isPrime = true;
+for (i = 2; i <= Math.sqrt(num); i++) { if (num % i == 0) {
+isPrime = false; break;
+}
+}
+if (isPrime && num > 1) { out.println(num + " "); countPrimes++;
+}
+num++;
+}
+%>
+</body>
+</html>
