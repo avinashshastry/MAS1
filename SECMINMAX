@@ -1,0 +1,57 @@
+import java.util.*;
+public class SecondMinMax {
+public static void main(String[] args) {
+Scanner scanner = new Scanner(System.in);
+System.out.print("Enter the number of elements: ");
+int n = scanner.nextInt();
+List numbers = new ArrayList();
+for (int i = 0; i < n; i++) {
+System.out.print("Enter element " + (i + 1) + ": ");
+int input = scanner.nextInt();
+numbers.add(input); // Autoboxing: primitive int to Integer object
+}
+Integer secondMin = findSecondMin(numbers);
+Integer secondMax = findSecondMax(numbers);
+if (secondMin == null || secondMax == null) {
+System.out.println("There are less than 2 elements.");
+} else {
+System.out.println("Second minimum: " + secondMin);
+System.out.println("Second maximum: " + secondMax);
+}
+scanner.close();
+}
+public static Integer findSecondMin(List numbers) {
+if (numbers.size() < 2)
+return null;
+int min = Integer.MAX_VALUE;
+int secondMin = Integer.MAX_VALUE;
+for (Object obj : numbers) {
+int num =(int) obj; // Unboxing: Object to primitive int
+if (num < min) {
+secondMin = min;
+min = num;
+8
+9
+} else if (num < secondMin && num != min) {
+secondMin = num;
+}
+}
+return secondMin == Integer.MAX_VALUE ? null : secondMin;
+}
+public static Integer findSecondMax(List numbers) {
+if (numbers.size() < 2)
+return null;
+int max = Integer.MIN_VALUE;
+int secondMax = Integer.MIN_VALUE;
+for (Object obj : numbers) {
+int num = (int)obj; // Unboxing: Object to primitive int
+if (num > max) {
+secondMax = max;
+max = num;
+} else if (num > secondMax && num != max) {
+secondMax = num;
+}
+}
+return secondMax == Integer.MIN_VALUE ? null : secondMax;
+}
+}
