@@ -1,0 +1,55 @@
+Index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Display Example</title>
+</head>
+<body>
+<h2>Click the link to view the file contents:</h2>
+<a href="FileDownloadServlet?filename=file.txt">View File</a>
+</body>
+</html>
+
+
+FileDownloadServlet.java
+package com.mycompany.filedownload;
+import java.io.*;
+import java.io.PrintWriter;
+import javax.servlet.ServletException; 
+import javax.servlet.annotation.WebServlet; 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletResponse;
+@WebServlet("/FileDownloadServlet")
+public class FileDownloadServlet extends HttpServlet { 
+private static final long serialVersionUID = 1L;
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws 
+ServletException, IOException {
+response.setContentType("text/html"); 
+PrintWriter out = response.getWriter();
+// Display HTML page with a link to download the file 
+out.println("<html><head><title>File Display Example</title></head><body>"); 
+out.println("<h2>Click the link to view the file contents:</h2>");
+out.println("<a href=\"FileDisplayServlet?filename=file.txt\">View File</a>"); 
+out.println("</body></html>");
+// Check if a filename is provided in the request 
+String fileName = request.getParameter("filename"); 
+24
+25
+if (fileName != null && !fileName.isEmpty()) {
+// Path to the file to be displayed
+String filePath = "D:/JEE/" + fileName; //
+// Display file contents
+try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) { 
+out.println("<h2>File Contents:</h2>");
+String line;
+while ((line = reader.readLine()) != null) { out.println(line + "<br>");
+}
+} catch (FileNotFoundException e) { out.println("<p>File not found.</p>");
+}
+}
+}
+}
