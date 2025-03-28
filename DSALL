@@ -121,67 +121,53 @@ void main()
 
 
 
+
 // SELECTION
-#include<stdio.h>
-void main()
-{
-    int a[50],n,ele,low,j ,small,x;
-    printf("Enter the size of array:");
-    scanf("%d",&n);
-    printf("Enter the array elements:\n");
-    for(int i=0;i<n;i++)
-    {
-        scanf("%d",&a[i]);
-    }
-      for(int i=0;i<n;i++)
-      {
-      small==1;
-      for(j=i+1; j<n;j++)
-      {
-          if(a[j]<a[small])
-
-          small=j;
-          int temp=a[small];
-          a[small]=a[i];
-          a[i]=temp;
-      }
-      }
-      printf("Sorted Array elements:\n");
-    for(int i=0;i<n;i++)
-    {
-        printf("%d \n",a[i]);
-    }
-}
-
-
-
-
-
 #include <stdio.h>
-#include <stdlib.h>
-#define MAX_SIZE 3
 
-
-// Structure for stack
-struct Stack {
-    int items[MAX_SIZE];
-    int top;
-};
-
-// initialize stack
-void initializeStack(struct Stack *s) {
-    s->top = -1;
+// Function to perform selection sort in descending order
+void selectionSortDescending(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        int maxIndex = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] > arr[maxIndex]) {
+                maxIndex = j;
+            }
+        }
+        // Swap the found maximum element with the first element
+        int temp = arr[maxIndex];
+        arr[maxIndex] = arr[i];
+        arr[i] = temp;
+    }
 }
 
-//  if stack is full
-int isFull(struct Stack *s) {
-    return s->top == MAX_SIZE - 1;
+// Function to print the array
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
 }
 
-//  if stack is empty
-int isEmpty(struct Stack *s) {
-    return s->top == -1;
+int main() {
+    int arr[] = {64, 25, 12, 22, 11};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Original array: \n");
+    printArray(arr, n);
+
+    selectionSortDescending(arr, n);
+
+    printf("Sorted array in descending order: \n");
+    printArray(arr, n);
+
+    return 0;
 }
+
+
+
+
+
 
 
 
@@ -189,84 +175,75 @@ int isEmpty(struct Stack *s) {
 
 
 //  push element onto stack
-void push(struct Stack *s) {
-    int value;
+#include <stdio.h>
+#define MAX 100
 
-    if (isFull(s)) {
-        printf("\nStack is full! Cannot push element.\n");
-        return;
+int stack[MAX], top = -1;
+
+// Function to push an element onto the stack
+void push(int value) {
+    if (top == MAX - 1) {
+        printf("Stack Overflow! Cannot push %d\n", value);
+    } else {
+        stack[++top] = value;
+        printf("%d pushed onto stack.\n", value);
     }
-
-    printf("\nEnter the value to push: ");
-    scanf("%d", &value);
-
-    s->top++;
-    s->items[s->top] = value;
-    printf("\nPushed %d to stack\n", value);
 }
 
-//  pop element from stack
-void pop(struct Stack *s) {
-    if (isEmpty(s)) {
-        printf("\nStack is empty! Cannot pop element.\n");
-        return;
+// Function to pop an element from the stack
+void pop() {
+    if (top == -1) {
+        printf("Stack Underflow! Cannot pop.\n");
+    } else {
+        printf("%d popped from stack.\n", stack[top--]);
     }
-
-    printf("\nPopped %d from stack\n", s->items[s->top]);
-    s->top--;
 }
 
-// display stack elements
-void display(struct Stack *s) {
-    if (isEmpty(s)) {
-        printf("\nStack is empty!\n");
-        return;
-    }
-
-    printf("\nStack elements are:\n");
-    for (int i = s->top; i >= 0; i--) {
-        printf("%d\n", s->items[i]);
+// Function to display the stack
+void display() {
+    if (top == -1) {
+        printf("Stack is empty.\n");
+    } else {
+        printf("Stack elements: ");
+        for (int i = top; i >= 0; i--) {
+            printf("%d ", stack[i]);
+        }
+        printf("\n");
     }
 }
 
 int main() {
-    struct Stack stack;
-    initializeStack(&stack);
-    int choice;
-
+    int choice, value;
     while (1) {
-        printf("\n=== Stack Operations ===");
-        printf("\n1. Push");
-        printf("\n2. Pop");
-        printf("\n3. Display");
-        printf("\n4. Exit");
-        printf("\nEnter your choice (1-4): ");
+        printf("\nMenu:\n");
+        printf("1. Push\n");
+        printf("2. Pop\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
 
         switch (choice) {
             case 1:
-                push(&stack);
+                printf("Enter value to push: ");
+                scanf("%d", &value);
+                push(value);
                 break;
-
             case 2:
-                pop(&stack);
+                pop();
                 break;
-
             case 3:
-                display(&stack);
+                display();
                 break;
-
             case 4:
-                printf("\nExiting program. Goodbye!\n");
-                exit(0);
-
+                printf("Exiting program...\n");
+                return 0;
             default:
-                printf("\nInvalid choice! Please try again.\n");
+                printf("Invalid choice! Please try again.\n");
         }
     }
-
-    return 0;
 }
+
 
 
 
@@ -469,6 +446,7 @@ printf("\n New Queue created successfully.\n");
 
 
 //binary seach tree 
+
 #include <stdio.h>
 #include <stdlib.h>
 
